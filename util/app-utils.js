@@ -14,12 +14,18 @@ function chunkArray(array, sizes) {
   return chunkedArray;
 }
 
-function mountHeaders(data) {
-  data = data.text.split('\n');
-  data.shift();
-  data.shift();
+function mountData(data) {
+  const items = data.text.split('\n').splice(3, 4);
+  return items;
+}
 
-  let headers = data[1].concat(' ').concat(data[2]).concat(' ').concat(data[3]).concat(' ').concat(data[4]).split(' ');
+function mountHeaders(data) {
+  const items = data.text.split('\n').splice(3, 4);
+
+  let headers = items[0].concat(' ')
+    .concat(items[1]).concat(' ')
+    .concat(items[2]).concat(' ')
+    .concat(items[3]).split(' ');
 
   const regex = /^[a-z]/;
   const formattedHeaders = headers.reduce((acumulator, header, i) => {
@@ -49,4 +55,4 @@ function mountHeaders(data) {
 }
 
 
-module.exports = { mountHeaders };
+module.exports = { mountHeaders, mountData };
